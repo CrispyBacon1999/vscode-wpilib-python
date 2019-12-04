@@ -1,99 +1,96 @@
 {
-    "name": "vscode-wpilib-python",
-    "displayName": "vscode-wpilib-python",
-    "description": "VSCode extension for WPILib Python",
-    "version": "0.0.1",
-    "publisher": "robotpy",
-    "engines": {
-        "vscode": "^1.25.0"
-    },
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-        "onLanguage:python",
-        "workspaceContains:.wpilib/wpilib_preferences.json",
-        "workspaceContains:build/vscodeconfig.json",
-        "onCommand:wpilibcore.selectCppToolchain",
-        "onCommand:wpilibcore.refreshCppProperties",
-        "onCommand:wpilibcore.startRioLog",
-        "onCommand:wpilibcore.openCommandPalette",
-        "onCommand:wpilibcore.setTeamNumber",
-        "onCommand:wpilibcore.startTool",
-        "onCommand:wpilibcore.deployCode",
-        "onCommand:wpilibcore.debugCode",
-        "onCommand:wpilibcore.simulateCode",
-        "onCommand:wpilibcore.testCode",
-        "onCommand:wpilibcore.buildCode",
-        "onCommand:wpilibcore.createCommand",
-        "onCommand:wpilibcore.setLanguage",
-        "onCommand:wpilibcore.setSkipTests",
-        "onCommand:wpilibcore.setOnline",
-        "onCommand:wpilibcore.setStopSimulationOnEntry",
-        "onCommand:wpilibcore.setAutoSave",
-        "onCommand:wpilibcore.setStartRioLog",
-        "onCommand:wpilibcore.createExample",
-        "onCommand:wpilibcore.createTemplate",
-        "onCommand:wpilibcore.cancelTasks",
-        "onCommand:wpilibcore.help",
-        "onCommand:wpilibcore.upgradeEclipseProject",
-        "onCommand:wpilibcore.createNewProject"
-    ],
-    "main": "./out/extension",
-    "license": "BSD-3-Clause",
-    "repository": "https://github.com/thadhouse/vscode-wpilib-python",
-    "contributes": {
-        "jsonValidation": [
-            {
-                "fileMatch": "python_preferences.json",
-                "url": "./resources/pythonschema.json"
-            }
+  "name": "vscode-wpilib-python",
+  "displayName": "vscode-wpilib-python",
+  "description": "VSCode extension for WPILib Python",
+  "version": "0.0.1",
+  "publisher": "robotpy",
+  "engines": {
+    "vscode": "^1.25.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:python",
+    "workspaceContains:**/robot.py"
+  ],
+  "main": "./out/extension",
+  "license": "BSD-3-Clause",
+  "repository": "https://github.com/robotpy/vscode-wpilib-python",
+  "contributes": {
+    "taskDefinitions": [
+      {
+        "type": "robotpy",
+        "required": [
+          "action"
         ],
-        "taskDefinitions": [
-            {
-                "type": "wpilibpython"
-            }
-        ],
-        "menus": {
-            "explorer/context": [
-                {
-                    "when": "resourceExtname == .py && isWPILibProject",
-                    "command": "wpilibcore.deployCode",
-                    "group": "wpilib"
-                },
-                {
-                    "when": "resourceExtname == .py && isWPILibProject",
-                    "command": "wpilibcore.testCode",
-                    "group": "wpilib"
-                }
-            ]
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "The action to perform"
+          },
+          "path": {
+            "type": "string",
+            "description": "Path to robot.py file. If omitted, will use src/robot.py",
+            "default": "src/robot.py"
+          }
         }
-    },
-    "scripts": {
-        "vscode:prepublish": "npm run compile && npm run lint",
-        "clean": "rmdir-cli out",
-        "compile": "tsc -p ./",
-        "lint": "tslint -c tslint.json -p tsconfig.json",
-        "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
-    },
-    "devDependencies": {
-        "typescript": "^3.1.6",
-        "vscode": "^1.1.22",
-        "rmdir-cli": "^2.0.6",
-        "tslint": "^5.11.0",
-        "@types/node": "^7.0.43",
-        "@types/mocha": "^5.2.5",
-        "@types/glob": "^7.1.1",
-        "@types/mkdirp": "^0.5.2",
-        "@types/ncp": "^2.0.1"
-    },
-    "dependencies": {
-        "glob": "^7.1.3",
-        "jsonc-parser": "^2.0.2",
-        "mkdirp": "^0.5.1",
-        "ncp": "^2.0.0",
-        "vscode-wpilibapi": "^2019.0.8"
-    }
+      }
+    ],
+    "commands": [
+      {
+        "command": "robotpy.simulate",
+        "title": "Simulate",
+        "category": "Robotpy"
+      },
+      {
+        "command": "robotpy.deploy",
+        "title": "Deploy",
+        "category": "Robotpy"
+      },
+      {
+        "command": "robotpy.createproject",
+        "title": "Create Robotpy Project",
+        "category": "Robotpy"
+      },
+      {
+        "command": "robotpy.getopkg",
+        "title": "Download Opkg",
+        "category": "Robotpy"
+      },
+      {
+        "command": "robotpy.installopkg",
+        "title": "Install Opkg",
+        "category": "Robotpy"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile && npm run lint",
+    "clean": "rmdir-cli out",
+    "compile": "tsc -p ./",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^8.0.1",
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^7.0.43",
+    "rmdir-cli": "^2.0.6",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6",
+    "vscode": "^1.1.36"
+  },
+  "dependencies": {
+    "@types/cheerio": "^0.22.15",
+    "@types/node-fetch": "^2.5.4",
+    "cheerio": "^1.0.0-rc.3",
+    "fs-extra": "^8.1.0",
+    "glob": "^7.1.3",
+    "jsonc-parser": "^2.0.2",
+    "node-fetch": "^2.6.0"
+  }
 }
