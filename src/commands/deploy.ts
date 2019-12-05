@@ -1,11 +1,11 @@
 import * as vscode from "vscode";
 import { createTerminal } from "../util/term";
+import { mainFile, pythonPath } from "../util/config";
 
 const command = () => {
-  let mainFile = vscode.workspace.getConfiguration("robotpy").get("main");
-  mainFile = mainFile === undefined ? "robot/robot.py" : mainFile;
+  let file = mainFile();
   let term: vscode.Terminal = createTerminal();
-  term.sendText(`py ${mainFile} deploy`);
+  term.sendText(`${pythonPath()} ${file} deploy`);
   term.show();
 };
 

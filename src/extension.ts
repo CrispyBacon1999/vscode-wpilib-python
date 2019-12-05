@@ -2,7 +2,9 @@
 
 import simulate from "./commands/simulate";
 import deploy from "./commands/deploy";
+import test from "./commands/test";
 import opkgGet from "./commands/opkgget";
+import installer from "./commands/install";
 
 // import { taskProvider as robotpyTaskProvider } from "./tasks/taskprovider";
 
@@ -13,18 +15,14 @@ import * as vscode from "vscode";
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export async function activate(context: vscode.ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
-
+  // Provide commands
   context.subscriptions.push(simulate);
   context.subscriptions.push(deploy);
+  context.subscriptions.push(test);
   context.subscriptions.push(opkgGet.downloadOpkg);
   context.subscriptions.push(opkgGet.installOpkg);
-  // vscode.tasks.registerTaskProvider("robotpy", robotpyTaskProvider);
-
-  console.log(
-    'Congratulations, your extension "vscode-wpilib-python" is now active!'
-  );
+  context.subscriptions.push(installer.downloadRobotpy);
+  context.subscriptions.push(installer.installRobotpy);
 }
 
 // this method is called when your extension is deactivated

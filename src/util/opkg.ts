@@ -1,6 +1,7 @@
 import * as cheerio from "cheerio";
 import fetch from "node-fetch";
 import * as vscode from "vscode";
+import { targetYear } from "./config";
 
 export type OpkgPackage = {
   name: string;
@@ -15,8 +16,7 @@ export type OpkgPackageVersion = {
 
 export const getOpkgList = (): Promise<{ [key: string]: OpkgPackage }> => {
   return new Promise((resolve, reject) => {
-    let y = vscode.workspace.getConfiguration("robotpy").get("year");
-    let year = y ? y : new Date().getFullYear();
+    let year = targetYear();
     // Pull packages from opkg list
     fetch(`https://www.tortall.net/~robotpy/feeds/${year}`)
       .then(async res => {

@@ -1,7 +1,7 @@
 {
   "name": "vscode-wpilib-python",
-  "displayName": "vscode-wpilib-python",
-  "description": "VSCode extension for WPILib Python",
+  "displayName": "Robotpy",
+  "description": "VSCode extension for Robotpy",
   "version": "0.0.1",
   "publisher": "robotpy",
   "engines": {
@@ -37,6 +37,30 @@
         }
       }
     ],
+    "configuration": {
+      "title": "Robotpy",
+      "properties": {
+        "robotpy.main": {
+          "type": "string",
+          "default": "src/robot.py",
+          "description": "Path to the robot.py file."
+        },
+        "robotpy.year": {
+          "type": "string",
+          "default": null,
+          "description": "The current year to use when searching for packages.",
+          "examples": [
+            "2019",
+            "2020"
+          ]
+        },
+        "robotpy.installer": {
+          "type": "string",
+          "default": "robotpy-installer",
+          "description": "The robotpy installer method to use. Change to the python method call that calls your installer. Defaults to the pip robotpy-installer module."
+        }
+      }
+    },
     "commands": [
       {
         "command": "robotpy.simulate",
@@ -62,9 +86,27 @@
         "command": "robotpy.installopkg",
         "title": "Install Opkg",
         "category": "Robotpy"
+      },
+      {
+        "command": "robotpy.test",
+        "title": "Test",
+        "category": "Robotpy"
+      },
+      {
+        "command": "robotpy.installrobotpy",
+        "title": "Install Robotpy to Robot",
+        "category": "Robotpy"
+      },
+      {
+        "command": "robotpy.downloadrobotpy",
+        "title": "Download Robotpy to cache",
+        "category": "Robotpy"
       }
     ]
   },
+  "extensionDependencies": [
+    "vscode.python"
+  ],
   "scripts": {
     "vscode:prepublish": "npm run compile && npm run lint",
     "clean": "rmdir-cli out",
